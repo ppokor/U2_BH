@@ -1,0 +1,52 @@
+integrator               = md			; MD integrator
+tinit                    = 0
+dt                       = 0.002		; 2 fs timestep
+nsteps                   = -1			; Number of steps
+pbc			 = xyz			; Periodic boundary conditions in xyz
+comm-mode                = linear			
+nstcomm                  = 5000
+comm-grps                = System
+cutoff-scheme            = Verlet
+
+; OUTPUT CONTROL OPTIONS
+nstxout                  = 500000			;  .trr-files
+nstxtcout                = 5000			; But do want .xtc-files
+nstvout                  = 0			; No velocities in output
+nstfout                  = 0			; No forces in output
+nstlist			 = 500			; Update neighbor list between cut-offs
+nstlog			 = 10000
+ns_type			 = grid			; Fastest option
+nstenergy		 = 5000			; .edr-file output
+energygrps		 = System		; Energy groups
+compressed-x-grps        = Non-Water            ; do not write water coordinates
+
+
+; OPTIONS FOR ELECTROSTATICS AND VDW
+coulombtype              = pme			; Particle mesh Ewald, do not change
+rcoulomb                 = 1.0			; Real-space cut-off
+						; This is different from the paper but
+						; since PME is used this will only speed
+						; things up!
+rlist			 = 1.0			; Short-range neighbor list
+rlistlong		 = 1.0			; Long-range neighbor list 
+vdw-type                 = Cut-off
+rvdw                     = 1.0			; and the function goes to zero here
+DispCorr                 = EnerPres		; Dispersion corrections
+table-extension          = 1
+fourierspacing		 = 0.15			; PME grid
+
+; OPTIONS FOR WEAK COUPLING ALGORITHMS 
+tcoupl                   = v-rescale		; Thermostat
+tc-grps                  = non-Water SOL   	; Couple lipids and SOL seperatly
+tau-t                    = 0.1 0.1  		; Time constant for temperature coupling
+ref-t                    = 298.16 298.16 	; Desired temperature (K)
+pcoupl                   = Parrinello-Rahman
+pcoupltype               = isotropic
+tau_p                    = 5.0
+compressibility          = 4.5e-5
+ref_p                    = 1.0
+
+; CONSTRAINTS
+constraints              = h-bonds		; Constrain all bonds
+constraint-algorithm     = Lincs		; With Lincs
+;unconstrained-start     = no

@@ -1,0 +1,33 @@
+# monte carlo 
+
+sim_type = MC
+ensemble = NVT
+
+delta_translation = 0.1
+delta_rotation = 0.1
+
+steps = 100 
+
+interaction_type = RNA2
+salt_concentration = 1.0
+
+max_backbone_force = 5
+max_backbone_force_far = 10
+
+external_forces = true
+external_forces_file = ../init_force.txt 
+
+T = 25C 
+backend = CPU
+verlet_skin = 0.05
+delta_translation = 1.3e-7
+restart_step_counter = 1
+energy_file = energyMCekvi.dat
+print_energy_every = $(steps)
+print_conf_interval = $(steps)
+time_scale = linear
+
+mismatch_repulsion = true
+use_average_seq = false 
+seq_dep_file = /u/p/ppokorna/progs/oxDNA/rna_sequence_dependent_parameters.txt
+

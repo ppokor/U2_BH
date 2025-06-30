@@ -1,0 +1,197 @@
+{
+    type = mutual_trap
+    particle = 26
+    ref_particle = 10
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 10
+    ref_particle = 26
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 28
+    ref_particle = 8
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 8
+    ref_particle = 28
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 7
+    ref_particle = 13
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 13
+    ref_particle = 7
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 6
+    ref_particle = 14
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 14
+    ref_particle = 6
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 5
+    ref_particle = 15
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 15
+    ref_particle = 5
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 4
+    ref_particle = 16
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 16
+    ref_particle = 4
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 3
+    ref_particle = 17
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 17
+    ref_particle = 3
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 18
+    ref_particle = 2
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 2
+    ref_particle = 18
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 1
+    ref_particle = 19
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 19
+    ref_particle = 1
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 0
+    ref_particle = 20
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 20
+    ref_particle = 0
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 9
+    ref_particle = 27
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}
+
+{
+    type = mutual_trap
+    particle = 27
+    ref_particle = 9
+    stiff = 2
+    r0 = 1.2
+    PBC = 1
+}

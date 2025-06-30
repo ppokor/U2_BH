@@ -1,0 +1,73 @@
+#
+source leaprc.protein.ff14SB
+source leaprc.water.tip3p
+source leaprc.RNA.OL3
+
+loadAmberParams frcmod.ff14SB
+loadAmberParams frcmod.tip3p
+loadAmberParams frcmod.ions1lm_126_tip3p
+loadAmberParams frcmod.ions234lm_iod_tip3p
+
+loadamberprep ZAFF.prep
+loadamberparams ZAFF.frcmod
+
+WAT=TIP3P
+HOH=TIP3P
+
+# newly parametrized ZN-sites
+addAtomTypes {
+        { "M2"  "Zn" "sp3" }
+        { "Y5"  "S" "sp3" }
+        { "Y6"  "S" "sp3" }
+        { "Y7"  "N" "sp3" }
+        { "Y8"  "N" "sp3" }
+}
+CM3 = loadmol2 CM3.mol2
+CM4 = loadmol2 CM4.mol2
+HE4 = loadmol2 HE4.mol2
+HD2 = loadmol2 HD2.mol2
+ZN5 = loadmol2 ZN5.mol2
+loadamberparams ZN_CCED.frcmod
+
+a=loadpdb 7evo_noTATSF1.pdb 
+
+# ZN
+bond a.2349.ZN a.2287.SG
+bond a.2349.ZN a.2329.SG
+bond a.2349.ZN a.2326.SG
+bond a.2349.ZN a.2284.SG
+
+bond a.2347.ZN a.2280.SG
+bond a.2347.ZN a.2315.SG
+bond a.2347.ZN a.2277.SG
+bond a.2347.ZN a.2312.SG
+
+bond a.2348.ZN a.2265.SG
+bond a.2348.ZN a.2339.SG
+bond a.2348.ZN a.2303.SG
+bond a.2348.ZN a.2300.SG
+
+# covalent bonds for ZN:
+bond a.2365.SG  a.2459.ZN
+bond a.2368.SG  a.2459.ZN
+bond a.2388.ND1 a.2459.ZN
+bond a.2382.NE2 a.2459.ZN
+# ZN-Cys/His backbone covalent bonds:
+########################
+bond a.2364.C a.2365.N
+bond a.2365.C a.2366.N
+bond a.2367.C a.2368.N
+bond a.2368.C a.2369.N
+bond a.2387.C a.2388.N
+bond a.2388.C a.2389.N
+bond a.2381.C a.2382.N
+bond a.2382.C a.2383.N
+
+check a 
+
+solvateOct a TIP3PBOX 20
+addions a Cl- 243 
+addions a K+ 0 
+saveamberparm a 7evo_noTATSF1.parm7 7evo_noTATSF1.rst7
+quit
+

@@ -1,0 +1,90 @@
+# vim:ft=plumed
+
+MOLINFO STRUCTURE=md0.pdb
+WHOLEMOLECULES STRIDE=1 ENTITY0=733
+
+################################################################################################
+# RESTRAINS, CONSTRAINS
+################################################################################################
+
+# DISTANCE RESTR ON GC/CG/AU PAIRS THAT CLOSE THE MOTIF:
+d1: DISTANCE ATOMS=17,530
+d2: DISTANCE ATOMS=19,532
+d3: DISTANCE ATOMS=22,534
+d4: DISTANCE ATOMS=495,52 
+d5: DISTANCE ATOMS=497,54 
+d6: DISTANCE ATOMS=500,56 
+d7: DISTANCE ATOMS=83,465
+d8: DISTANCE ATOMS=85,467 
+
+d9:  DISTANCE ATOMS=717,277 
+d10: DISTANCE ATOMS=719,279 
+d11: DISTANCE ATOMS=722,281 
+d12: DISTANCE ATOMS=307,687
+d13: DISTANCE ATOMS=309,689
+d14: DISTANCE ATOMS=312,691
+d15: DISTANCE ATOMS=654,341 
+d16: DISTANCE ATOMS=656,343 
+
+uwall_1: UPPER_WALLS ARG=d1,d2,d3,d4,d5,d6,d7,d8,d9,d10,d11,d12,d13,d14,d15,d16 AT=0.22,0.22,0.22,0.22,0.22,0.22,0.22,0.22,0.22,0.22,0.22,0.22,0.22,0.22,0.22,0.22 KAPPA=150.0,150.0,150.0,150.0,150.0,150.0,150.0,150.0,150.0,150.0,150.0,150.0,150.0,150.0,150.0,150.0 EXP=2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2
+
+# COM on AU pairs 
+c1: COM ATOMS=76-89,459-469
+c2: COM ATOMS=335-345,647-660
+dcom: DISTANCE ATOMS=c1,c2 
+uwall_2: UPPER_WALLS ARG=dcom AT=2.0 KAPPA=150.0 EXP=2
+
+# pseudodihedral (AMIGOS Pyle) to keep the free strand +- A-RNA-like
+# use sinus to avoid issues with dihedral angle periodicity
+pseudodih1: TORSION ATOMS=548,572,579,605
+spd1: MATHEVAL ARG=pseudodih1 FUNC=sin(x) PERIODIC=NO
+
+pseudodih2: TORSION ATOMS=572,579,605,612
+spd2: MATHEVAL ARG=pseudodih2 FUNC=sin(x) PERIODIC=NO
+
+pseudodih3: TORSION ATOMS=579,605,612,635
+spd3: MATHEVAL ARG=pseudodih3 FUNC=sin(x) PERIODIC=NO
+
+pseudodih4: TORSION ATOMS=605,612,635,642
+spd4: MATHEVAL ARG=pseudodih4 FUNC=sin(x) PERIODIC=NO
+
+lwall_1: LOWER_WALLS ARG=spd1 AT=0.0 KAPPA=150.0 EXP=2
+lwall_3: LOWER_WALLS ARG=spd3 AT=0.0 KAPPA=150.0 EXP=2
+uwall_4: UPPER_WALLS ARG=spd2 AT=0.0 KAPPA=150.0 EXP=2
+uwall_5: UPPER_WALLS ARG=spd4 AT=0.0 KAPPA=150.0 EXP=2
+
+
+# eRMSDs for metadynamics:
+eRMSD_BSL: ERMSD REFERENCE=md0.pdb ATOMS=@lcs-4,@lcs-5,@lcs-6,@lcs-12,@lcs-13,@lcs-14 CUTOFF=3.2
+eRMSD_BHP: ERMSD REFERENCE=ref_BPH_C246.pdb ATOMS=@lcs-12,@lcs-13,@lcs-14,@lcs-18,@lcs-19,@lcs-20 CUTOFF=3.2
+
+# uwall on ermsd sum not to sample too far away where I dont care
+eRMSDcombined: COMBINE ARG=eRMSD_BSL,eRMSD_BHP POWERS=1,1 PERIODIC=NO 
+uwall_3: UPPER_WALLS ARG=eRMSDcombined AT=4.0 KAPPA=300.0 EXP=2
+
+# extension to the previous - control if both are too far in eRMSD and put a wall there:
+eRMSD_dist: COMBINE ARG=eRMSD_BSL,eRMSD_BHP POWERS=1,1 PERIODIC=NO COEFFICIENTS=1,-1
+eRMSD_sort: SORT ARG=eRMSD_BSL,eRMSD_BHP
+border: COMBINE ARG=eRMSD_dist,eRMSD_sort.1 POWERS=2,2 PERIODIC=NO COEFFICIENTS=1,-1
+
+lwall_2: LOWER_WALLS ARG=border AT=-2.0 KAPPA=150.0 EXP=2
+
+
+# sum up all the biases
+uwallbiases: COMBINE ARG=uwall_1.bias,uwall_2.bias,uwall_3.bias,uwall_4.bias,uwall_5.bias,lwall_1.bias,lwall_2.bias,lwall_3.bias POWERS=1,1,1,1,1,1,1,1 PERIODIC=NO
+
+
+#####################################################
+
+t1: METAD ...
+   ARG=eRMSD_BSL,eRMSD_BHP SIGMA=0.1,0.1 BIASFACTOR=10 PACE=200 TAU=70 TEMP=300
+   GRID_MIN=0.0,0.0 GRID_MAX=5.0,5.0
+...
+
+####################################################################################################
+# OUTPUTS
+####################################################################################################
+
+PRINT ARG=eRMSD_BSL,eRMSD_BHP,eRMSDcombined,t1.bias FILE=COLVAR_eRMSD2 STRIDE=100
+PRINT ARG=uwall_1.bias,uwall_2.bias,uwall_3.bias,uwall_4.bias,uwall_5.bias,lwall_1.bias,lwall_2.bias,lwall_3.bias,uwallbiases FILE=UWALLs STRIDE=100
+

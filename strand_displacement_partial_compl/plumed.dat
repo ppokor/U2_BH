@@ -1,0 +1,27 @@
+# vim:ft=plumed
+#
+MOLINFO STRUCTURE=md0.pdb
+WHOLEMOLECULES ENTITY0=1-1200
+
+####################################################################################################
+# HBfix SECTION 
+####################################################################################################
+group_1: COORDINATION PAIR GROUPA=970,972,1003,1005,1007,1033,1035,437,439,469,471,502,500,504,532,534,534,560,562,594,596,628,626,1065,1067,1128,1130,1157,1159,1188,1190,1192 GROUPB=406,408,372,374,377,340,342,939,941,907,909,876,845,876,811,813,816,783,785,749,751,716,714,313,311,275,277,245,247,211,213,216 SWITCH={CUSTOM FUNC=((-2092.0000000000)*(0.3-x)^2)*step(x-0.3)*step(0.4-x)+((-2092.0000000000)*(0.1)*(2*x-0.7))*step(x-0.4)+((2615.0000000000)*(0.3-x)^2)*step(x-0.3)*step(0.38-x)+((2615.0000000000)*(0.08)*(2*x-0.68))*step(x-0.38) R_0=1.0}
+
+# HBfixes applied (O/N...H)
+# note that for the C-C/U triple I now use HBs that were in 7qtt MD (3), but in 7qtt exp there was one and different (500-878), and U bulged out, in 7vpx it was a C-U/U triple with the same U bulged out
+# toehold                            2x AU PBs above   the C-C/U triple and GU    #the GU AU GU             #lower part of helix, UU, GU, CU, GC
+#                                    toehold           as in 7qtt MD,3BPs for GU  2BPs for GUs              UU is either of the two HBs, 2BPs for GUs
+# 970,972,1003,1005,1007,1033,1035,  437,439,469,471,  502,500,504,532,534,534,   560,562,594,596,628,626,  1065,1067,1128,1130,1157,1159,1188,1190,1192
+# 406,408,372,374,377,340,342,       939,941,907,909,  876,845,876,811,813,816,   783,785,749,751,716,714,  313,311,275,277,245,247,211,213,216
+
+tot_1: COMBINE ARG=group_1 COEFFICIENTS=1.0000000 PERIODIC=NO
+
+#### P P ends of intron keep away from each other to prevent circulation
+d1: DISTANCE ATOMS=696,1169
+lwall_2: LOWER_WALLS ARG=d1 AT=3.0 KAPPA=150.0 EXP=2
+
+BIASVALUE ARG=tot_1 LABEL=all_group_1
+
+PRINT ARG=tot_1,all_group_1.bias STRIDE=100 FILE=check_hbfix.dat
+

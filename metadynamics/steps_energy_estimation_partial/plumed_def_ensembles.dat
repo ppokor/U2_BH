@@ -1,0 +1,23 @@
+# vim:ft=plumed
+
+MOLINFO STRUCTURE=../partial_compl/md0.pdb
+WHOLEMOLECULES STRIDE=1 ENTITY0=733
+
+bp1: ERMSD REFERENCE=../partial_compl/ref_BPH_C246.pdb ATOMS=@lcs-12,@lcs-20
+bp2: ERMSD REFERENCE=../partial_compl/ref_BPH_C246.pdb ATOMS=@lcs-13,@lcs-19
+bp3: ERMSD REFERENCE=../partial_compl/ref_BPH_C246.pdb ATOMS=@lcs-14,@lcs-18
+bp12: ERMSD REFERENCE=../partial_compl/ref_BPH_C246.pdb ATOMS=@lcs-12,@lcs-20,@lcs-13,@lcs-19
+bp123: ERMSD REFERENCE=../partial_compl/ref_BPH_C246.pdb ATOMS=@lcs-12,@lcs-20,@lcs-13,@lcs-19,@lcs-14,@lcs-18
+
+bsl3: ERMSD REFERENCE=../partial_compl/md0.pdb ATOMS=@lcs-4,@lcs-5,@lcs-6,@lcs-12,@lcs-13,@lcs-14
+bsl2: ERMSD REFERENCE=../partial_compl/md0.pdb ATOMS=@lcs-4,@lcs-5,@lcs-13,@lcs-14
+bsl1: ERMSD REFERENCE=../partial_compl/md0.pdb ATOMS=@lcs-4,@lcs-14
+
+ssuu: ERMSD REFERENCE=ss_ref.pdb ATOMS=@lcs-6,@lcs-13
+ssgc: ERMSD REFERENCE=ss_ref.pdb ATOMS=@lcs-5,@lcs-14
+ss: ERMSD REFERENCE=ss_ref.pdb ATOMS=@lcs-5,@lcs-14,@lcs-6,@lcs-13
+
+
+PRINT ARG=bp1,bp2,bp3,bp12,bp123,bsl3,bsl2,bsl1,bsl3,ssuu,ssgc,ss FILE=bps.dat STRIDE=1
+
+
