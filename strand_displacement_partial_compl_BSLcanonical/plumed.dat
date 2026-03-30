@@ -1,0 +1,23 @@
+# vim:ft=plumed
+# choose units - by default PLUMED uses kj/mol, nm, and ps
+# UNITS ENERGY=kcal/mol LENGTH=A
+
+MOLINFO STRUCTURE=md0.pdb
+WHOLEMOLECULES STRIDE=1 ENTITY0=1-1203
+
+####################################################################################################
+# HBfix SECTION 
+####################################################################################################
+
+group_1: COORDINATION PAIR GROUPA=973,975,1006,1008,1019,1036,1038,440,442,472,474,505,503,507,535,537,537,563,565,597,599,631,629,1068,1070,1131,1133,1160,1162 GROUPB=409,411,375,377,380,343,345,942,944,910,912,879,848,879,814,816,819,786,788,752,754,719,717,316,314,278,280,248,250 SWITCH={CUSTOM FUNC=((-2092.0000000000)*(0.3-x)^2)*step(x-0.3)*step(0.4-x)+((-2092.0000000000)*(0.1)*(2*x-0.7))*step(x-0.4)+((2615.0000000000)*(0.3-x)^2)*step(x-0.3)*step(0.38-x)+((2615.0000000000)*(0.08)*(2*x-0.68))*step(x-0.38) R_0=1.0}
+
+
+tot_1: COMBINE ARG=group_1 COEFFICIENTS=1.0000000 PERIODIC=NO
+
+#### P P ends of intron keep away from each other to prevent circulation
+d1: DISTANCE ATOMS=699,1172
+lwall_2: LOWER_WALLS ARG=d1 AT=3.0 KAPPA=150.0 EXP=2
+
+BIASVALUE ARG=tot_1 LABEL=all_group_1
+
+

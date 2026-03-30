@@ -1,0 +1,20 @@
+20241120 - modXNA extended version based on parameters for the 107 modified nucleosides in RNA: see ../cmd/leaprc.modrna08
+
+BOND
+NA-CM	411.1	1.377	same as c2-na
+
+
+ANGLE
+NA-C -NA	73.2	113.292	same as na-c -na
+NA-CM-H4	51.2	114.801	same as ha-c2-na
+C -NA-CM	64.3	124.776	same as c -na-c2
+CM-NA-H		47.6	120.094	same as c2-na-hn
+CM-CM-NA	69.8	122.685	same as c2-c2-na
+CM-CT-H2	47.2      111.69      SOURCE4_SOURCE5           49    0.9061
+
+DIHE
+C -NA-CM-H4   1    0.625       180.000           2.000      same as X -c2-na-X
+H4-CM-NA-H    1    0.625       180.000           2.000      same as X -c2-na-X
+C -NA-CM-CM   1    0.625       180.000           2.000      same as X -c2-na-X
+CM-CM-NA-H    1    0.625       180.000           2.000      same as X -c2-na-X
+

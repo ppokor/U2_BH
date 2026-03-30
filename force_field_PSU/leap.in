@@ -1,0 +1,22 @@
+# usage: tleap -f leap.in
+
+source leaprc.protein.ff14SB
+source leaprc.water.tip3p
+source leaprc.RNA.OL3
+
+loadAmberParams frcmod.ff14SB
+loadAmberParams frcmod.tip3p
+loadAmberParams frcmod.ions1lm_126_tip3p
+
+loadamberparams frcmod_ECO_ONLY.modxna
+loadoff ECO.lib
+
+a=loadpdb eq05_orig.pdb
+check a
+
+solvateOct a TIP3PBOX 12
+addions a Cl- 35
+addions a K+ 0 
+saveamberparm a u2BSL_intron_partial_PSU.parm7 u2BSL_intron_partial_PSU.rst7
+quit
+
