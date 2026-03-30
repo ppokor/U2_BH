@@ -12,5 +12,5 @@ amber.save('gromacs.gro')
 !!
 EOF
 
-gmx_mpi grompp -f ./MTD.mdp -c gromacs.gro -p gromacs.top -o MTD.tpr -maxwarn 1
+gmx_mpi grompp -f ./MD.mdp -c gromacs.gro -p gromacs.top -o MD.tpr -maxwarn 1
 

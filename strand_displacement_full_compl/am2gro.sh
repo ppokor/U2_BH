@@ -13,9 +13,9 @@ amber.save('gromacs.gro')
 EOF
 
 #normal topology
-gmx_mpi grompp -f ../MTD.mdp -c gromacs.gro -p gromacs.top -o MTD.tpr -maxwarn 1
+gmx_mpi grompp -f ../MD.mdp -c gromacs.gro -p gromacs.top -o MD.tpr -maxwarn 1
 
 #stafix-scaled topology
 python ../scaleSTAFIX_gromacs.py gromacs.top 0.9
-gmx_mpi grompp -f ../MTD.mdp -c gromacs.gro -p gromacsSTAFIX0.9.top -o MTD_stafix.tpr -maxwarn 1
+gmx_mpi grompp -f ../MD.mdp -c gromacs.gro -p gromacsSTAFIX0.9.top -o MD_stafix.tpr -maxwarn 1
 
