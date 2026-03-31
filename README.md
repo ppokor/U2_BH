@@ -1,5 +1,7 @@
 # U2-intron strand invasion modeling
 
+<img width="7366" height="1542" alt="rect43" src="https://github.com/user-attachments/assets/a8aea4fb-5c3f-42f7-95db-65b7c770b73f" />
+
 Preprint is here: https://www.biorxiv.org/content/10.1101/2025.10.31.685824v1 
  
 This directory contains the simulation setup and some analysis files
