@@ -9,6 +9,7 @@ initial coordinates (md0.rst7 files) are those after equilibration
 \*\_stripWAT.parm7 files are water-stripped topologies for the deposited trajectories
 
 ZN parameters are in the U2SF3b\_complex/, see the example PDB files there for residue naming 
+
 PSU (pseudouracil) parameters are in the force\_field\_PSU, see the example PDB file there for residue naming
 
 Run the calculations with GROMACS:
