@@ -1,5 +1,7 @@
 # U2-intron strand invasion modeling
 
+Preprint is here: https://www.biorxiv.org/content/10.1101/2025.10.31.685824v1 
+ 
 This directory contains the simulation setup and some analysis files
 
 initial coordinates (md0.rst7 files) are those after equilibration
